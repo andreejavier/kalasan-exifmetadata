@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Planted Tree</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        .dashboard {
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px;
+            height: 100vh;
+        }
+        .sidebar-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar-menu li {
+            margin: 15px 0;
+        }
+        .sidebar-menu li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 0;
+            display: block;
+        }
+        .sidebar-menu li a:hover {
+            text-decoration: underline;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            width: 100%;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: orange;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: darkorange;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background-color: #343a40;
+            color: white;
+            padding: 15px 0;
+        }
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+        .stat-item span {
+            display: block;
+            font-size: 24px;
+            margin-top: 5px;
+            color: limegreen;
+        }
+        .map-container {
+            height: 600px;
+            width: 100%;
+        }
+        .map-actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: white;
+            border-top: 1px solid #ddd;
+            width: 100%;
+        }
+        .map-actions button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .map-actions button:hover {
+            background-color: #ddd;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 700px) {
+            .dashboard {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                padding: 10px;
+            }
+
+            .stats {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .map-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2 class="sidebar-title">Kalasan</h2>
+            <ul class="sidebar-menu">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="./map.php">Map</a></li>
+                <li><a href="./stats.html">Your Planted</a></li>
+                <li><a href="./upload-plant.html">Plant</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <!-- Header Section -->
+            <header class="header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Species" />
+                    <input type="text" placeholder="Location" />
+                    <button>Go</button>
+                </div>
+               
+            </header>
+
+            <!-- Stats Section -->
+            <div class="stats">
+                <div class="stat-item">
+                    <h4>Observations</h4>
+                    <span>0</span>
+                </div>
+                <div class="stat-item">
+                    <h4>Species</h4>
+                    <span>0</span>
+                </div>
+                <div class="stat-item">
+                    <h4>Identifiers</h4>
+                    <span>0</span>
+                </div>
+                <div class="stat-item">
+                    <h4>Observers</h4>
+                    <span>0</span>
+                </div>
+            </div>
+
+            <!-- Map Actions -->
+            <div class="map-actions">
+                <div>
+                    <button><i class="fas fa-map-marker-alt"></i> Map</button>
+                    <button><i class="fas fa-th"></i> Grid</button>
+                    <button><i class="fas fa-list"></i> List</button>
+                </div>
+            </div>
+
+            <!-- Map Container -->
+            <div class="map-container" id="map"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        const map = L.map('map').setView([12.8797, 121.7740], 6);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add a marker to the map
+        L.marker([12.8797, 121.7740]).addTo(map)
+            .bindPopup('Location of Planted Tree')
+            .openPopup();
+    </script>
+</body>
+</html>
